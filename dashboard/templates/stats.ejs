@@ -1,0 +1,53 @@
+<%- include('blocks/header', {bot, user, path, creator}) %>
+<h2><%= bot.user.username %> Stats</h2>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-2">
+            <img src="<%= bot.user.displayAvatarURL({ size: 2048 }) %>" width="220" height="220" alt="<%= bot.user.username %>" title="<%= bot.user.username %>">
+        </div>
+        <div class="col-10">
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-user" aria-hidden="true"></i>&nbsp;Creator:</div>
+                <div class="col-5 text-nowrap"><strong><%= creator.username %>#<%= creator.discriminator %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-calendar-day" aria-hidden="true"></i>&nbsp;Created On:</div>
+                <div class="col-5 text-nowrap"><strong><%= stats.created %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-server" aria-hidden="true"></i>&nbsp;Servers:</div>
+                <div class="col-5 text-nowrap"><strong><%= bot.guilds.cache.size %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-clock" aria-hidden="true"></i>&nbsp;Uptime:</div>
+                <div class="col-5 text-nowrap"><strong><%= stats.uptime %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-users" aria-hidden="true"></i>&nbsp;Members:</div>
+                <div class="col-5 text-nowrap"><strong><%= bot.guilds.cache.reduce((p, c)=> p + c.memberCount, 0).toLocaleString() %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-tasks" aria-hidden="true"></i>&nbsp;Memory:</div>
+                <div class="col-5 text-nowrap"><strong><%= (process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2) %> MB</strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-hashtag" aria-hidden="true"></i>&nbsp;Text Channels:</div>
+                <div class="col-5 text-nowrap"><strong><%= bot.channels.cache.filter((c)=> c.type === "text").size %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fas fa-fw fa-microphone" aria-hidden="true"></i>&nbsp;Voice Channels:</div>
+                <div class="col-5 text-nowrap"><strong><%= bot.channels.cache.filter((c)=> c.type === "voice").size %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fab fa-fw fa-discord" aria-hidden="true"></i>&nbsp;Discord.js Version:</div>
+                <div class="col-5 text-nowrap"><strong><%= stats.dVersion %></strong></div>
+            </div>
+            <div class="row justify-content-md-center">
+                <div class="col-5 text-nowrap"><i class="fab fa-fw fa-node-js" aria-hidden="true"></i>&nbsp;Node.js Version:</div>
+                <div class="col-5 text-nowrap"><strong><%= process.version %></strong></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('blocks/footer', {bot, user, path, creator}) %>

@@ -1,0 +1,83 @@
+<%- include('blocks/header', {bot, user, path, creator}) %>
+<%
+    const help = {};
+    for (const [key, value] of Object.entries(commands)) {
+        const cat = key
+        if (!help.hasOwnProperty(cat)) help[cat] = [];
+        help[cat].push(value);
+    }
+%>
+    <h2>Commands</h2>
+    <p>Below is a list of all commands that <%= bot.user.username %> has. This page assumes that the command prefix is <kbd>!</kbd>.</p>
+    <p><strong>Note: </strong><kbd><></kbd> means required arguments, while <kbd>[]</kbd> means optional arguments.</p>
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <% for (const category in help) { %>
+                    <a class="list-group-item list-group-item-action" id="list-<%= `${category.replace(/ +/g, '-')}` %>-list" data-toggle="list" href="#list-<%= `${category.replace(/ +/g, '-')}` %>"
+                        role="tab" aria-controls="<%= `${category.replace(/ +/g, '-')}` %>"><%= category %></a>
+                <% } %>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <% for (const category in help) { %>
+                    <div class="tab-pane fade show" id="list-<%= `${category.replace(/ +/g, '-')}` %>" role="tabpanel"
+                        aria-labelledby="list-<%= `${category.replace(/ +/g, '-')}` %>-list">
+                        <div class="row">
+                            <% for (const command of help[category]) { %>
+                                <% for (const [key, value] of Object.entries(command)) { %>
+                                    <div class="col-4">
+                                        <div class="card mb-2">
+                                            <h3 class="card-header"><%= key %></h3>
+                                            <div class="card-body" style="height: 150px;">
+                                                <p class="card-text"><%= value.description %></p>
+                                            </div>
+                                            <div class="card-footer text-center">
+                                                <a href="#" data-toggle="modal" data-target="#<%= `${key}` %>Modal" class="btn btn-primary btn-block">
+                                                    Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="<%= `${key}` %>Modal" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header btn-info disabled">
+                                                    <h4 class="modal-title"><%= key %></h4>
+                                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><%= value.description %></p>
+                                                    <% if (value.usage) { %>
+                                                        <p><strong>Usage Example: </strong><kbd>
+                                                                <%= value.usage %>
+                                                            </kbd></p>
+                                                    <% } %>
+                                                    <% if (value.aliases) { %>
+                                                        <p><strong>Command Aliases: </strong>
+                                                            <%= value.aliases.join(", ") %></p>
+                                                    <% } %>
+                                                </div>
+                                                <div class=" modal-footer">
+                                                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <% } %>
+                            <% } %>
+                        </div>
+                     </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+
+<script>
+    $(document).ready(() => {
+        $('#list-tab').find('.list-group-item-action').first().addClass('active');
+        $('#nav-tabContent').find('.tab-pane').first().addClass('active');
+    });
+</script>
+<%- include('blocks/footer', {bot, user, path, creator}) %>

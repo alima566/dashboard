@@ -1,0 +1,242 @@
+{
+    "Info": {
+        "help": {
+            "description": "Lists out all the commands that KelleeBot has.",
+            "usage": "!help <Command Name>"
+        },
+        "resources": {
+            "description": "Links you to important resources to help BIPOC and LGBTQ+ communities."
+        },
+        "serverinfo": {
+            "description": "Gives information about the server."
+        },
+        "userinfo": {
+            "description": "Gives information about yourself or another member in the server.",
+            "usage": "!userinfo [The member to see information for]",
+            "aliases": ["userinfo", "profile", "whois"]
+        }
+    },
+    "Animal Crossing" : {
+        "art": {
+            "description": "Retrieve information about a specific artwork in Animal Crossing: New Horizons.",
+            "usage": "!art <artwork_name>"
+        },
+        "bug": {
+            "description": "Retrieve information about a specific bug in Animal Crossing: New Horizons.",
+            "usage": "!bug <bug_name>"
+        },
+        "dream": {
+            "description": "Show's the server owner's ACNH dream address, if they have one set.",
+            "aliases": ["dream", "da"]
+        },
+        "fish": {
+            "description": "Retrieve information about a specific fish in Animal Crossing: New Horizons.",
+            "usage": "!fish <fish_name>"
+        },
+        "recipe": {
+            "description": "Retrieve information about a specific recipe in Animal Crossing: New Horizons.",
+            "usage": "!recipe <diy_name>",
+            "aliases": ["recipe", "diy"]
+        },
+        "sc": {
+            "description": "Retrieve information about a special character in any Animal Crossing.",
+            "usage": "!sc <character_name>"
+        },
+        "sea": {
+            "description": "Retrieve information about a specific sea creature in Animal Crossing: New Horizons.",
+            "usage": "!sea <seacreature_name>"
+        },
+        "villager": {
+            "description": "Retrieve information about a specific villager in any Animal Crossing game.",
+            "usage": "!villager <villager_name>"
+        }
+    },
+    "Animals": {
+        "bunny": {
+            "description": "KelleeBot shows you a random picture/gif of a bunny.",
+            "aliases": ["bunny", "bunbun"]
+        },
+        "cat": {
+            "description": "KelleeBot shows you a random picture of a cat and provides you with a random cat fact.",
+            "aliases": ["cat", "kitty"]
+        },
+        "dog": {
+            "description": "KelleeBot shows you a random picture of a dog and provides you with a random dog fact.",
+            "aliases": ["dog", "doggy", "doggo"]
+        },
+        "fox": {
+            "description": "KelleeBot shows you a random picture of a fox and provides you with a random fox fact."
+        },
+        "koala": {
+            "description": "KelleeBot shows you a random picture of a koala and provides you with a random koala fact."
+        },
+        "panda": {
+            "description": "KelleeBot shows you a random picture of a panda and provides you with a random panda fact."
+        },
+        "shiba": {
+            "description": "KelleeBot shows you a random picture a shiba dog."
+        }
+    },
+    "Fun": {
+        "dadadvice": {
+            "description": "KelleeBot gives you a random dad advice."
+        }, 
+        "dadjoke": {
+            "description": "KelleeBot tells you a random dad joke."
+        }
+    },
+    "Gambling": {
+        "blackjack": {
+            "description": "Play blackjack with the bot.",
+            "usage": "!blackjack <The amount you want to gamble OR all>"
+        },
+        "daily": {
+            "description": "Gives users their daily rewards."
+        },
+        "gamble": {
+            "description": "Users can gamble away the amount of points that they have.",
+            "usage": "!gamble <The amount you want to gamble OR all>",
+            "aliases": ["gamble", "roulette"]
+        },
+        "points": {
+            "description": "Displays how many points you or another user has and their current ranking.",
+            "aliases": ["points", "balance", "bal"]
+        },
+        "slots": {
+            "description": "Play the slots and test your luck. Each slot win gives you 4 times the amount you bet.",
+            "usage": "!slots <The amount you want to gamble OR all>",
+            "aliases": ["slots", "slot"]
+        }
+    },
+    "Genshin": {
+        "character": {
+            "description": "Retrieve information about a specific character in Genshin Impact.",
+            "usage": "!character <character name>",
+            "aliases": ["character", "gi"]
+        },
+        "recipes": {
+            "description": "Retrieve information about a specific recipe in Genshin Impact.",
+            "usage": "!recipes <recipe>"
+        },
+        "uid": {
+            "description": "Show's the server owner's UID, if they have one set."
+        },
+        "weapon": {
+            "description": "Retrieve information about a specific weapon in Genshin Impact.",
+            "usage": "!weapon <weapon name>"
+        }
+    },
+    "Misc": {
+        "country": {
+            "description": "Gives you information about a country.",
+            "usage": "!country <Country Name>"
+        },
+        "enlarge": {
+            "description": "Enlarges an emote.",
+            "usage": "!enlarge <emoji>"
+        },
+        "fc": {
+            "description": "Shows the server owner's Nintendo Switch friend code, if they have one set."
+        },
+        "food": {
+            "description": "KelleeBot shows you a random meal.",
+            "aliases": ["food", "breakfast", "lunch", "dinner"]
+        },
+        "hug": {
+            "description": "Hugs another user.",
+            "usage": "!hug [The other member to hug]"
+        },
+        "movie": {
+            "description": "Gives you information about a movie.",
+            "usage": "!movie <Movie Title>"
+        },
+        "tv": {
+            "description": "Gives you information about a tv show.",
+            "usage": "!tv <TV Show Title>",
+            "aliases": ["tv", "show", "tvshow"]
+        },
+        "ty": {
+            "description": "KelleeBot gives you or another user a random compliment.",
+            "usage": "!ty [The other member to compliment]"
+        },
+        "weather": {
+            "description": "Gives you the current weather of the specified location.",
+            "usage": "!weather <location>"
+        }
+    },
+    "Moderation": {
+        "ban": {
+            "description": "Bans a user/member from the server.",
+            "usage": "!ban <The target's @ OR ID number> [Reason]"
+        },
+        "history": {
+            "description": "Shows moderation history of a user.",
+            "usage": "!history <The target's @ OR ID number>"
+        },
+        "kick": {
+            "description": "Kicks a member from the server.",
+            "usage": "!kick <The target's @ OR ID number> [Reason]"
+        },
+        "mute": {
+            "description": "Mutes a member in the server.",
+            "usage": "!mute <The target's @ OR ID number> <Duration> <Reason>"
+        },
+        "softban": {
+            "description": "Softbans a member from the server.",
+            "usage": "!softban <The target's @ OR ID number> [Reason]"
+        },
+        "unban": {
+            "description": "Unbans a member from the server.",
+            "usage": "!unban <The target's ID number> [Reason]"
+        },
+        "warn": {
+            "description": "Warns a member in the server.",
+            "usage": "!warn <The target's @ OR ID number> <Reason>"
+        }
+    },
+    "Music": {
+        "clearqueue": {
+            "description": "Clears the song queue.",
+            "aliases": ["clearqueue", "clear"]
+        },
+        "lyrics": {
+            "description": "Shows lyrics for either what's currently playing or for what's specfied.",
+            "usage": "!lyrics <query>"
+        },
+        "nowplaying": {
+            "description": "Shows what's currently playing",
+            "aliases": ["nowplaying", "np", "song"]
+        },
+        "pause": {
+            "description": "Pauses the music."
+        },
+        "play": {
+            "description": "Plays/searches for the specified song.",
+            "usage": "!play <query>"
+        },
+        "queue": {
+            "description": "Displays all the songs that are currently in the queue.",
+            "aliases": ["queue", "songs"]
+        },
+        "resume": {
+            "description": "Resumes the paused music."
+        },
+        "skip": {
+            "description": "Skips the current song."
+        },
+        "stop": {
+            "description": "Stops the song."
+        },
+        "volume": {
+            "description": "Adjusts the volume of the song.",
+            "usage": "!volume <The volume percentage>",
+            "aliases": ["volume", "setvolume"]
+        }
+    },
+    "Pokémon": {
+        "pokemon": {
+            "description": "Retrieve information about a specific Pokémon.",
+            "usage": "!pokemon <pokemon_name>"
+        }
+    }
+}
