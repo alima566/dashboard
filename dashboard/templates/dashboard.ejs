@@ -1,7 +1,7 @@
 <%- include('blocks/header', {bot, user, path, creator}) %>
 <h1 class="display-3">Dashboard</h1>
 <ul class="list-unstyled">
-    <% user.guilds.forEach(guild=> {
+    <% user.guilds.forEach(guild => {
         const permsOnGuild = new perms(guild.permissions);
         if(!permsOnGuild.has("MANAGE_GUILD")) return;
         %>
@@ -11,7 +11,7 @@
                     src="<%= `https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png?size=128` %>"
                     style="width: 80px;" alt="<%= guild.name %>">
                 <% } else { %>
-                    <canvas style="background-color: #7289da" class="d-flex mr-3 rounded-circle"
+                    <canvas style="background-color: #5865F2" class="d-flex mr-3 rounded-circle"
                         id="<%= guild.id %>" width="80px" height="80px"></canvas>
                     <script>
                         function draw() {
