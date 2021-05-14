@@ -15,9 +15,56 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <th scope="row" class="align-middle">Server Prefix</th>
+                            <th scope="row" class="align-middle" title="Sets the prefix to be used when executing commands. Default is '!'.">Server Prefix</th>
                             <td width="80%">
-                                <input type="text" class="form-control form-control-sm" style="text-align: left;" name="prefix" id="prefix" value="!" placeholder="Enter a prefix">
+                                <input type="text" class="form-control form-control-sm" style="text-align: left;" name="prefix" id="prefix" value="<%= prefix %>" placeholder="Enter a prefix">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="align-middle" title="Sets the channel that logs all activities for moderation purposes.">Mod Logging Channel</th>
+                            <td width="80%">
+                                <select class="form-control form-control-sm" style="text-align: left;" name="modLog" id="modLog">
+                                    <% if (guild.channels.cache.get(botLoggingChannel)) { %>
+                                        <option selected><%= guild.channels.cache.get(botLoggingChannel).name %></option>
+                                    <% } else { %>
+                                        <option selected disabled>Select a Mod Logging Channel</option>
+                                    <% } %>
+                                    <% guild.channels.cache.filter((c) => c.type === "text").forEach(channel => { %>
+                                        <option value="<%= channel.name %>"><%= channel.name %></option>
+                                    <% }); %>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="align-middle" title="Set a gambling channel in order to enable gambling within your server.">Gambling Channel</th>
+                            <td width="80%">
+                                <select class="form-control form-control-sm" style="text-align: left;" name="gamblingChan" id="gamblingChan">
+                                    <% if (guild.channels.cache.get(gambleChannel)) { %>
+                                        <option selected>
+                                            <%= guild.channels.cache.get(gambleChannel).name %>
+                                        </option>
+                                        <% } else { %>
+                                            <option selected disabled>Select a Gambling Channel</option>
+                                            <% } %>
+                                                <% guild.channels.cache.filter((c)=> c.type === "text").forEach(channel => { %>
+                                                    <option value="<%= channel.name %>">
+                                                        <%= channel.name %>
+                                                    </option>
+                                                    <% }); %>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="align-middle" title="Set your Nintendo Switch Friend Code so that other members can use the friend code command.">Nintendo Switch Friend Code</th>
+                            <td width="80%">
+                                <input type="text" class="form-control form-control-sm" style="text-align: left;" name="friendCode" id="friendCode" value="<%= fc %>" placeholder="Enter your Nintendo Switch Friend Code">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row" class="align-middle" title="Set your Genshin UID so that other members can use the uid command.">Genshin Impact UID</th>
+                            <td width="80%">
+                                <input type="text" class="form-control form-control-sm" style="text-align: left;" name="uid"
+                                    id="uid" value="<%= uid %>" placeholder="Enter your Genshin Impact UID">
                             </td>
                         </tr>
                     </tbody>
@@ -32,8 +79,10 @@
     </div>
 </div>
 <% include('../blocks/guild-modals') %>
-    <script type="text/javascript">
-        var ts = parseInt($('#guildCreate').text());
-        $('#guildCreate').html(`${moment(ts).format('MMMM Do YYYY')}`);
-    </script>
+
+<script type="text/javascript">
+    const ts = parseInt($('#guildCreate').text());
+    $('#guildCreate').html(`${moment(ts).format('MMMM Do YYYY')}`);
+</script>
+
 <%- include('../blocks/footer', {bot, user, path, creator}) %>
