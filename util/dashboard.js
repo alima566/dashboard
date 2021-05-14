@@ -220,15 +220,43 @@ module.exports = (client) => {
 
   // Settings page to change the guild configuration. Definitely more fancy than using
   // the `set` command!
-  app.get("/dashboard/:guildID/manage", checkAuth, (req, res) => {
+  app.get("/dashboard/:guildID/manage", checkAuth, async (req, res) => {
+    const prefixSchema = require("../models/prefixes");
+    const friendCodeSchema = require("../models/friendCodes");
+    const uidSchema = require("../models/uids");
+    const botChannelSchema = require("../models/botChannelLog");
+    const gamblingChannelSchema = require("../models/gamblingChannels");
+
     const guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.status(404);
+
+    const serverPrefix = await prefixSchema.findOne({ _id: guild.id });
+    const ownerFriendCode = await friendCodeSchema.findOne({ _id: guild.id });
+    const ownerUID = await uidSchema.findOne({ _id: guild.id });
+    const botChannel = await botChannelSchema.findOne({ _id: guild.id });
+    const gamblingChannel = await gamblingChannelSchema.findOne({
+      _id: guild.id,
+    });
+
+    const prefix = serverPrefix ? serverPrefix.prefix : "!";
+    const fc = ownerFriendCode ? ownerFriendCode.friendCode : null;
+    const uid = ownerUID ? ownerUID.uid : null;
+    const botLoggingChannel = botChannel ? botChannel.channelID : null;
+    const gambleChannel = gamblingChannel ? gamblingChannel.channelID : null;
+
     const isManaged =
       guild && !!guild.member(req.user.id)
         ? guild.member(req.user.id).permissions.has("MANAGE_GUILD")
         : false;
     if (!isManaged && !req.session.isAdmin) res.redirect("/");
-    renderTemplate(res, req, "guild/manage.ejs", { guild });
+    renderTemplate(res, req, "guild/manage.ejs", {
+      guild,
+      prefix,
+      fc,
+      uid,
+      botLoggingChannel,
+      gambleChannel,
+    });
   });
 
   // When a setting is changed, a POST occurs and this code runs
