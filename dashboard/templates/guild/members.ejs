@@ -1,52 +1,74 @@
 <%- include('../blocks/header', {bot, user, path, creator}) %>
 <div class="container">
     <h2>Member List</h2>
-    <div class="row" style="margin-top: 25px;">
-        <div class="col-6">
-            <form class="form-inline">
-
-                <label class="mr-sm-2" for="show-members">Show</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0 form-control-sm" id="show-members">
-                    <option value="50">50</option>
-                    <option value="100">100</option>
-                    <option value="250">250</option>
-                </select>
-                <label class="mr-sm-2" for="sort-by">Sort</label>
-                <select class="custom-select mb-2 mr-sm-2 mb-sm-0 form-control-sm" id="sort-by">
-                    <option value="displayName">Name</option>
-                    <option value="joinedTimestamp">Join</option>
-                    <option value="id">ID</option>
-                </select>
-                <label class="sr-only" for="display-name-search">Display Name Search</label>
-                <div class="input-group">
-                    <div class="input-group-addon fa fa-search"></div>
-                    <input type="text" class="form-control form-control-sm" id="display-name-search"
-                        placeholder="Display Name">
-                </div>
-            </form>
-        </div>
-        <div class="col-6">
-            <nav aria-label="Member Navigation">
-                <ul class="pagination pagination-sm justify-content-end">
-                </ul>
-            </nav>
-        </div>
-    </div>
 </div>
 
-<table class="table table-hover table-bordered">
+<table class="table table-hover table-bordered" width="100%" id="membersList">
     <thead class="thead-default">
         <tr>
-            <th>Display Name:</th>
-            <th>User Tag:</th>
-            <th>Joined:</th>
-            <th>Roles:</th>
+            <th style="width: 20%">Display Name</th>
+            <th>User Tag + ID</th>
+            <th style="width: 20%">Joined</th>
+            <th>Roles</th>
         </tr>
     </thead>
-    <tbody></tbody>
+    <tbody>
+        <% guild.members.cache.forEach(member => { %>
+            <tr>
+                <td>
+                    <img src="<%= member.user.displayAvatarURL({ dynamic: true, size: 32 }) %>"
+                        class="d-inline-block align-middle rounded-circle" alt="<%= member.user.tag %>">&nbsp;
+                    <a href="#" data-toggle="modal" data-target="#<%= `${member.displayName}` %>Modal">
+                        <span style="color:<%= member.roles.highest.hexColor === '#000000' ? '#FFFFFF' : member.roles.highest.hexColor %>">
+                            <%= member.displayName %>
+                        </span>
+                    </a>
+                    <% if (member.user.bot) { %>&nbsp;<img src="/public/bot.png" /><% } %>
+                </td>
+                <td><%= member.user.tag %><br>(<%= member.id %>)</td>
+                <td class="joinedAt">
+                    <%= member.joinedTimestamp %>
+                </td>
+                <td class="roles"><%= member.roles.cache.filter(r=> r.id !== guild.id ).map(r => r.name).join(", ")%>
+                </td>
+            </tr>
+            <!-- Modal -->
+            <div id="<%= `${member.displayName}` %>Modal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header btn-info disabled">
+                            <h4 class="modal-title">
+                                <img src="<%= member.user.displayAvatarURL({ dynamic: true, size: 32 }) %>"
+                                    class="d-inline-block align-middle rounded-circle" alt="<%= member.user.tag %>">&nbsp;<%= member.user.tag %>
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-2">
+                                    <img src="<%= member.user.displayAvatarURL({ dynamic: true, size: 128 }) %>" alt="<%= member.user.username %>"
+                                        title="<%= member.user.username %>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" modal-footer">
+                            <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <% }) %>
+    </tbody>
 </table>
 
 <script type="text/javascript">
+    moment.tz.add("America/New_York|EST EDT EWT EPT|50 40 40 40|01010101010101010101010101010101010101010101010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261t0 1nX0 11B0 1nX0 11B0 1qL0 1a10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 RB0 8x40 iv0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|21e6");
+    $('.joinedAt').each((index, element) => {
+        const ts = parseInt($(element).text());
+        $(element).html(moment.tz(ts, "America/New_York").format('MMM D YYYY h:mm A z'))
+    })
+
     const guildID = "<%= guild.id %>";
     const pages = {
         total: null,
@@ -77,6 +99,8 @@
     }
 
     const updateTable = (members) => {
+        moment.tz.add("America/New_York|EST EDT EWT EPT|50 40 40 40|01010101010101010101010101010101010101010101010102301010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010|-261t0 1nX0 11B0 1nX0 11B0 1qL0 1a10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 RB0 8x40 iv0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1qN0 WL0 1qN0 11z0 1o10 11z0 1o10 11z0 1o10 11z0 1o10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1cN0 1cL0 1cN0 1cL0 s10 1Vz0 LB0 1BX0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 1cN0 1fz0 1a10 1fz0 1cN0 1cL0 1cN0 1cL0 1cN0 1cL0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 14p0 1lb0 14p0 1lb0 14p0 1nX0 11B0 1nX0 11B0 1nX0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Rd0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0 Op0 1zb0|21e6");
+
         $("table tbody").empty();
         for (let i = 0; i < members.length; i++) {
             member = members[i];
@@ -91,7 +115,7 @@
                 .replace("{status}", member.status)
                 .replace("{tag}", member.tag)
                 .replace("{id}", member.id)
-                .replace("{joined}", moment(member.joinedAt).format("MMMM Do YYYY, h:mm a"))
+                .replace("{joined}", moment.tz(member.joinedAt, "America/New_York").format("ddd, MMM D, YYYY h:mm A z"))
                 .replace("{roles}", roles);
             thishtml = member.bot ? thishtml.replace("{botimg}", ' <img src="/public/bot.png">') : thishtml.replace("{botimg}", '');
             $('table > tbody').append(thishtml);
@@ -123,18 +147,31 @@
     }
     const snippet = `    <tr>
       <td style="color:{color}"><span class="status {status}"></span> {displayName}{botimg}</td>
-      <td style="color:{color}">{tag}<br/>{id}</td>
+      <td style="color:{color}">{tag}<br/>({id})</td>
       <td style="color:{color}">{joined}</td>
       <td>{roles}</td>
     </tr>`;
     const roleSnippet = '<span style="color:{color}">{name}</span>';
 
     $(document).ready(() => {
-        getMembers(0, (data) => {
-            pages.current = data.page;
-            updateTable(data.members);
-            drawPagination();
-        });
+        // getMembers(0, (data) => {
+        //     pages.current = data.page;
+        //     updateTable(data.members);
+        //     drawPagination();
+        // });
+        $('#membersList').DataTable({
+            lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+            pageLength: 50,
+            columnDefs: [{
+                orderable: false,
+                targets: 3
+            }],
+            language: {
+                lengthMenu: "Show _MENU_ members",
+                info:  "Showing _START_ to _END_ of _TOTAL_ member(s)",
+                infoFiltered: " (filtered from _MAX_ members)"
+            }
+        })
     });
 
     $("#show-members").change(() => {
