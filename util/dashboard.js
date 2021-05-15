@@ -279,7 +279,7 @@ module.exports = (client) => {
     const guild = client.guilds.cache.get(req.params.guildID);
     if (!guild) return res.status(404);
     renderTemplate(res, req, "guild/members.ejs", {
-      guild: guild,
+      guild,
       members: guild.members.cache.array(),
     });
   });
