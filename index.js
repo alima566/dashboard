@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const Discord = require("discord.js");
 const mongoose = require("mongoose");
 
@@ -16,7 +18,7 @@ require("./util/functions.js")(client);
 
 client.owners = new Array();
 
-mongoose.connect(client.config.mongoPath, {
+mongoose.connect(process.env.MONGO_PATH, {
   keepAlive: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -48,4 +50,4 @@ client.on("ready", async () => {
   require("./util/dashboard")(client);
 });
 
-client.login(client.config.token);
+client.login(process.env.TOKEN);

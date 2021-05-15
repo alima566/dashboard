@@ -49,7 +49,7 @@ module.exports = (client) => {
     new Strategy(
       {
         clientID: client.application.id,
-        clientSecret: client.config.dashboard.clientSecret,
+        clientSecret: process.env.CLIENT_SECRET,
         callbackURL: client.config.dashboard.callbackURL,
         scope: ["identify", "guilds"],
       },
@@ -63,7 +63,7 @@ module.exports = (client) => {
   app.use(
     session({
       store: new MemoryStore({ checkPeriod: 86400000 }),
-      secret: client.config.dashboard.sessionSecret,
+      secret: process.env.SESSION_SECRET,
       resave: false,
       saveUninitialized: false,
     })
